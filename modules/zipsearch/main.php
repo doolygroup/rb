@@ -3,7 +3,7 @@ if(!defined('__KIMS__')) exit;
 
 include_once $g['dir_module'].'var/var.php';
 
-if (!$zip1 || !$zip2 || !$addr1)
+if (!$zip1 || !$addr1)
 {
 	getLink(RW(0),'','','');
 }

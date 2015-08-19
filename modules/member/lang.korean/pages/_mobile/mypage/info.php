@@ -159,9 +159,8 @@
 	<td>
 		<div id="addrbox"<?php if($my['addr0']=='해외'):?> class="hide"<?php endif?>>
 		<div>
-		<input type="number" name="zip_1" id="zip1" value="<?php echo substr($my['zip'],0,3)?>" maxlength="3" size="3" readonly="readonly" class="input" />-
-		<input type="number" name="zip_2" id="zip2" value="<?php echo substr($my['zip'],3,3)?>" maxlength="3" size="3" readonly="readonly" class="input" /> 
-		<input type="button" value="우편번호" class="btngray btn" onclick="OpenWindow('<?php echo $g['s']?>/?r=<?php echo $r?>&m=zipsearch&zip1=zip1&zip2=zip2&addr1=addr1&focusfield=addr2');" />
+		<input type="number" name="zip_1" id="zip1" value="<?php echo $my['zip']?>" maxlength="6" size="6" readonly="readonly" class="input" />
+		<input type="button" value="우편번호" class="btngray btn" onclick="OpenWindow('<?php echo $g['s']?>/?r=<?php echo $r?>&m=zipsearch&zip1=zip1&addr1=addr1&focusfield=addr2');" />
 		</div>
 		<div><input type="text" name="addr1" id="addr1" value="<?php echo $my['addr1']?>" readonly="readonly" class="input addrx" /></div>
 		<div><input type="text" name="addr2" id="addr2" value="<?php echo $my['addr2']?>" class="input addrx" /></div>
@@ -363,9 +362,8 @@
 	<td class="key">사업장주소<span>*</span></td>
 	<td>
 		<div>
-		<input type="number" name="comp_zip_1" id="comp_zip1" value="<?php echo substr($myc['comp_zip'],0,3)?>" maxlength="3" size="3" readonly="readonly" class="input" />-
-		<input type="number" name="comp_zip_2" id="comp_zip2" value="<?php echo substr($myc['comp_zip'],3,3)?>" maxlength="3" size="3" readonly="readonly" class="input" /> 
-		<input type="button" value="우편번호" class="btngray btn" onclick="OpenWindow('<?php echo $g['s']?>/?r=<?php echo $r?>&m=zipsearch&zip1=comp_zip1&zip2=comp_zip2&addr1=comp_addr1&focusfield=comp_addr2');" />
+		<input type="number" name="comp_zip_1" id="comp_zip1" value="<?php echo $myc['comp_zip']?>" maxlength="6" size="6" readonly="readonly" class="input" /> 
+		<input type="button" value="우편번호" class="btngray btn" onclick="OpenWindow('<?php echo $g['s']?>/?r=<?php echo $r?>&m=zipsearch&zip1=comp_zip1&addr1=comp_addr1&focusfield=comp_addr2');" />
 		</div>
 		<div><input type="text" name="comp_addr1" id="comp_addr1" value="<?php echo $myc['comp_addr1']?>" readonly="readonly" class="input addrx" /></div>
 		<div><input type="text" name="comp_addr2" id="comp_addr2" value="<?php echo $myc['comp_addr2']?>" class="input addrx" /></div>

@@ -15,7 +15,6 @@
 		<input type="hidden" name="m" value="<?php echo $m?>" />
 		<input type="hidden" name="action" value="search" />
 		<input type="hidden" name="zip1" value="<?php echo $zip1?>" />
-		<input type="hidden" name="zip2" value="<?php echo $zip2?>" />
 		<input type="hidden" name="addr1" value="<?php echo $addr1?>" />
 		<input type="hidden" name="focusfield" value="<?php echo $focusfield?>" />
 
@@ -95,8 +94,7 @@
 function zip_copy(zip1,zip2,addr)
 {
 	<?php if($focusfield):?>
-	opener.document.getElementById('<?php echo $zip1?>').value = zip1;
-	opener.document.getElementById('<?php echo $zip2?>').value = zip2;
+	opener.document.getElementById('<?php echo $zip1?>').value = zip1 + zip2;
 	opener.document.getElementById('<?php echo $addr1?>').value = addr;
 	opener.document.getElementById('<?php echo $focusfield?>').focus();
 	<?php endif?>
