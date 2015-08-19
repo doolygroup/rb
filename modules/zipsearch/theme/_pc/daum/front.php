@@ -1,6 +1,5 @@
 <?php
-  $_SESSION['zipsearch_info']=='';  
-  $_SESSION['zipsearch_info']=$zip1.'^'.$zip2.'^'.$addr1.'^'.$focusfield; // get 으로 넘어온 값들을 세션에 저장
+  $zipsearch_info=$zip1.'^'.$addr1.'^'.$focusfield; // get 으로 넘어온 값들을 세팅 
 ?>
 
 <div id="wrap" style="overflow:hidden;">
@@ -43,22 +42,18 @@
                     fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
                 }
 
-                 // 주소검색 세션값 추출
-                var zipsearch_info='<?php echo $_SESSION['zipsearch_info']?>';
+                 // GET 으로 넘어온 필드값  추출
+                var zipsearch_info='<?php echo $zipsearch_info?>';
                 var zipsearch_info_arr=zipsearch_info.split('^');
-                var zip1_input=zipsearch_info_arr[0];
-                var zip2_input=zipsearch_info_arr[1];
-                var addr1_input=zipsearch_info_arr[2];
-                var addr2_input=zipsearch_info_arr[3];
+                var zip_input=zipsearch_info_arr[0];
+                var addr1_input=zipsearch_info_arr[1];
+                var addr2_input=zipsearch_info_arr[2];
                
-                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                 // 우편번호 값 얻기 
                 var post_code=data.zonecode;
-                var zip1=post_code.substring(0,3); // 앞에서 3자리 자르기 
-                var zip2=post_code.substring(4,2); // 나머지 2자리 
-            
+                         
                 // 우편번호와 주소 정보를 해당 필드에 넣고, 커서를 상세주소 필드로 이동한다.
-                parent.opener.document.getElementById(zip1_input).value = zip1;
-                parent.opener.document.getElementById(zip2_input).value = zip2;
+                parent.opener.document.getElementById(zip_input).value = post_code;
                 parent.opener.document.getElementById(addr1_input).value = fullAddr;
                 
                 // 커서를 상세주소 필드로 이동한다.
