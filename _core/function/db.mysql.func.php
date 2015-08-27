@@ -96,7 +96,7 @@ function getDbDelete($table,$where)
 	global $DB_CONNECT;
 	db_query("delete from ".$table.($where?' where '.getSqlFilter($where):''),$DB_CONNECT);
 }
-//SQL필터링 - 다음 패치에 적용예정
+//SQL필터링 
 function getSqlFilter($sql)
 {
 	return preg_replace("( union| update| insert| delete| drop|\/\*|\*\/|\\\|\;)",'',$sql);
