@@ -99,6 +99,6 @@ function getDbDelete($table,$where)
 //SQL필터링 - 다음 패치에 적용예정
 function getSqlFilter($sql)
 {
-	return $sql;
+	return preg_replace("( union| update| insert| delete| drop|\/\*|\*\/|\\\|\;)",'',$sql);
 }
 ?>
