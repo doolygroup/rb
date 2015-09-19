@@ -76,6 +76,11 @@ fwrite($fp, "\$d['member']['layout_mypage'] = \"".$layout_mypage."\";\n");
 
 fwrite($fp, "\$d['member']['sosokmenu'] = \"".$sosokmenu."\";\n");
 
+//개인정보보호
+fwrite($fp, "\$d['member']['inactive_table'] = \"".$inactive_table."\";\n");
+fwrite($fp, "\$d['member']['inactive_email_send'] = \"".$inactive_email_send."\";\n");
+fwrite($fp, "\$d['member']['active_email_send'] = \"".$active_email_send."\";\n");
+
 fwrite($fp, "?>");
 fclose($fp);
 @chmod($_tmpdfile,0707);
@@ -115,6 +120,56 @@ if ($_join_menu == 3)
 	}
 	fclose($fp);
 	@chmod($mfile,0707);
+}
+// 휴면계정 테이블 생성 프로세스 추가
+if(!$is_inactive_table)
+{
+    //회원기본데이터
+	$_tmp = db_query( "select count(*) from ".$DB['head']."_".$inactive_table, $DB_CONNECT );
+	if ( !$_tmp ) {
+	$_tmp = ("
+
+	CREATE TABLE ".$DB['head']."_".$inactive_table." (
+	uid	  INT		PRIMARY KEY		NOT NULL AUTO_INCREMENT,
+	memberuid 	INT				DEFAULT '0' 	NOT NULL,
+	auth 	TINYINT			DEFAULT '0'		NOT NULL,
+	email		VARCHAR(50)	 	DEFAULT ''		NOT NULL,
+	name		VARCHAR(30)	 	DEFAULT ''		NOT NULL,
+	nic			VARCHAR(50)		DEFAULT ''		NOT NULL,
+	photo		VARCHAR(200)	DEFAULT ''		NOT NULL,
+	home		VARCHAR(100)	DEFAULT ''		NOT NULL,
+	sex			TINYINT			DEFAULT '0'		NOT NULL,
+	birth1		SMALLINT		DEFAULT '0'		NOT NULL,
+	birth2		SMALLINT(4)		UNSIGNED ZEROFILL DEFAULT '0000' NOT NULL,
+	birthtype	TINYINT			DEFAULT '0'		NOT NULL,
+	tel1		VARCHAR(14)		DEFAULT ''		NOT NULL,
+	tel2		VARCHAR(14)		DEFAULT ''		NOT NULL,
+	zip			VARCHAR(6)		DEFAULT ''		NOT NULL,
+	addr0		VARCHAR(6)		DEFAULT ''		NOT NULL,
+	addr1		VARCHAR(200)	DEFAULT ''		NOT NULL,
+	addr2		VARCHAR(100)	DEFAULT ''		NOT NULL,
+	job			VARCHAR(30)		DEFAULT ''		NOT NULL,
+	marr1		SMALLINT		DEFAULT '0'		NOT NULL,
+	marr2		SMALLINT(4)		UNSIGNED ZEROFILL DEFAULT '0000' NOT NULL,
+	sns			TEXT			NOT NULL,
+	addfield	TEXT			NOT NULL,
+	d_regis VARCHAR(14)		DEFAULT ''		NOT NULL,
+	KEY memberuid(memberuid),
+	KEY email(email),
+	KEY name(name),
+	KEY nic(nic),
+	KEY sex(sex),
+	KEY birth1(birth1),
+	KEY birth2(birth2),
+	KEY birthtype(birthtype),
+	KEY addr0(addr0),
+	KEY job(job),
+	KEY marr1(marr1),
+	KEY marr2(marr2),
+	KEY d_regis(d_regis)) ENGINE=".$DB['type']." CHARSET=UTF8");                            
+	db_query($_tmp, $DB_CONNECT);
+	db_query("OPTIMIZE TABLE ".$DB['head']."_".$inactive_table,$DB_CONNECT); 
+	}
 }
 
 $_SESSION['_join_menu'] = $_join_menu;
