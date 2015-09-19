@@ -84,12 +84,8 @@ getDbUpdate($table['s_numinfo'],'login=login+1',"date='".$date['today']."' and s
 getDbUpdate($table['s_referer'],'mbruid='.$M['uid'],"d_regis like '".$date['today']."%' and site=".$s." and mbruid=0 and ip='".$_SERVER['REMOTE_ADDR']."'");
 
 
-if ($idpwsave == 'checked')
-{
-	setcookie('svshop', $id.'|'.$pw, time()+60*60*24*30, '/');
-}
-else {
-	setcookie('svshop', '', 0, '/');
+if($idpwsave=='checked'){
+   setAccessToken($M1['memberuid'],'login'); // sys.function.php 파일 함수  참조
 }
 
 $_SESSION['mbr_uid'] = $M['uid'];
