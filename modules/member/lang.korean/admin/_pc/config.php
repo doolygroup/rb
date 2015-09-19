@@ -456,6 +456,12 @@
 					</td>
 				</tr>
 				<tr>
+					<td class="td1"><span>로그인 유지기간</span></td>
+					<td class="td2">
+						<input type="text" name="login_expire" value="<?php echo $d['member']['login_expire']?>" size="5" class="input" /> 일
+					</td>
+				</tr>
+				<tr>
 					<td class="td1"><span>로그인페이지 옵션</span></td>
 					<td class="td2">
 						<input type="checkbox" name="login_ssl" value="1"<?php if($d['member']['login_ssl']):?> checked="checked"<?php endif?> />보안접속(SSL) 사용<br />

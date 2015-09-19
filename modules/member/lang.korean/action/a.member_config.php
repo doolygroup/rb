@@ -66,6 +66,7 @@ fwrite($fp, "\$d['member']['mytab_out'] = \"".$mytab_out."\";\n");
 
 //로그인
 fwrite($fp, "\$d['member']['login_point'] = \"".$login_point."\";\n");
+fwrite($fp, "\$d['member']['login_expire'] = \"".$login_expire."\";\n");
 fwrite($fp, "\$d['member']['login_emailid'] = \"".$login_emailid."\";\n");
 fwrite($fp, "\$d['member']['login_openid'] = \"".$login_openid."\";\n");
 fwrite($fp, "\$d['member']['login_ssl'] = \"".$login_ssl."\";\n");
