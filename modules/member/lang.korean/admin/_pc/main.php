@@ -12,6 +12,12 @@ $typeset = array
 	'_pw'=>'비밀번호요청 양식',
 );
 
+// 정보통신법 / 개인정보 취급 관련법 개정 적용 
+//$year_ago1=date('YmdHis',mktime(substr($date['totime'],8,2),substr($date['totime'],10,2),substr($date['totime'],12,2),substr($date['today'],4,2),substr($date['today'],6,2),substr($date['today'],0,4)-1));// 1년전 시간포함
+$year_ago1=date('Ymd',mktime(0,0,0,substr($date['today'],4,2),substr($date['today'],6,2),substr($date['today'],0,4)-1));// 1년전
+$year_ago2=date('Ymd',mktime(0,0,0,substr($date['today'],4,2),substr($date['today'],6,2),substr($date['today'],0,4)-2));// 2년전
+$year_ago3=date('Ymd',mktime(0,0,0,substr($date['today'],4,2),substr($date['today'],6,2),substr($date['today'],0,4)-3));// 3년전
+
 $SITES = getDbArray($table['s_site'],'','*','gid','asc',0,1);
 $year1	= $year1  ? $year1  : substr($date['today'],0,4);
 $month1	= $month1 ? $month1 : substr($date['today'],4,2);
@@ -35,6 +41,7 @@ if ($level) $_WHERE .= ' and level='.$level;
 if ($now_log) $_WHERE .= ' and now_log='.($now_log-1);
 if ($sex) $_WHERE .= ' and sex='.$sex;
 if ($comp) $_WHERE .= ' and comp='.$comp;
+if($last_log) $_WHERE .=' and last_log <='.$last_log.'245959';
 
 if ($marr1)
 {
@@ -60,13 +67,17 @@ $NUM = getDbRows($table['s_mbrdata'].' left join '.$table['s_mbrid'].' on member
 //$RCD = getDbArray($table['s_mbrdata'],$_WHERE,'*',$sort,$orderby,$recnum,$p);
 //$NUM = getDbRows($table['s_mbrdata'],$_WHERE);
 $TPG = getTotalPage($NUM,$recnum);
-$autharr = array('','인증','보류','대기','탈퇴');
+$autharr = array('','인증','보류','대기','탈퇴','휴면');
 
 $xyear1	= substr($date['totime'],0,4);
 $xmonth1= substr($date['totime'],4,2);
 $xday1	= substr($date['totime'],6,2);
 $xhour1	= substr($date['totime'],8,2);
 $xmin1	= substr($date['totime'],10,2);
+// 휴면대상 회원 검색결과 추출
+$inactive_where='last_log <='.$year_ago1.'245959';
+$inactive_num=getDbRows($table['s_mbrdata'],$inactive_where);
+$inactive_total_param='year1=2001&month1=01&day1=01&year2='.$year2.'&month2='.$month2.'&day2='.$day2.'&last_log='.$year_ago1;
 ?>
 
 
@@ -90,6 +101,9 @@ $xmin1	= substr($date['totime'],10,2);
 		<option value="">등록된 사이트가 없습니다.</option>
 		<?php endif?>
 		</select>
+		<span class="inactive_info">
+			<a href="<?php echo $g['adm_href']?>&amp;<?php echo $inactive_total_param?>">총 휴면대상 회원 수 : <span><?php echo $inactive_num?> 명 </span></a>
+		</span>
 
 		<div>
 		<select name="year1">
@@ -130,6 +144,7 @@ $xmin1	= substr($date['totime'],10,2);
 		<option value="2"<?php if($auth == 2):?> selected="selected"<?php endif?>><?php echo $autharr[2]?></option>
 		<option value="3"<?php if($auth == 3):?> selected="selected"<?php endif?>><?php echo $autharr[3]?></option>
 		<option value="4"<?php if($auth == 4):?> selected="selected"<?php endif?>><?php echo $autharr[4]?></option>
+		<option value="5"<?php if($auth == 5):?> selected="selected"<?php endif?>><?php echo $autharr[5]?></option>
 		</select>
 
 		<select name="sosok" onchange="this.form.submit();">
@@ -210,6 +225,13 @@ $xmin1	= substr($date['totime'],10,2);
 		<option value="2"<?php if($sms == 2):?> selected="selected"<?php endif?>>동의</option>
 		<option value="1"<?php if($sms == 1):?> selected="selected"<?php endif?>>동의안함</option>
 		</select>
+		<select name="last_log" onchange="this.form.submit();">
+		<option value="">최근 로그인</option>
+		<option value="">--------</option>
+		<option value="<?php echo $year_ago1?>" <?php if($last_log==$year_ago1):?> selected="selected"<?php endif?>>1년 이상 미로그인</option>
+		<option value="<?php echo $year_ago2?>" <?php if($last_log==$year_ago2):?> selected="selected"<?php endif?>>2년 이상 미로그인</option>
+		<option value="<?php echo $year_ago3?>" <?php if($last_log==$year_ago3):?> selected="selected"<?php endif?>>3년 이상 미로그인</option>
+		</select>
 
 		</div>
 
@@ -222,7 +244,7 @@ $xmin1	= substr($date['totime'],10,2);
 		<option value="usepoint"<?php if($sort=='usepoint'):?> selected="selected"<?php endif?>>사용포인트</option>
 		<option value="cash"<?php if($sort=='cash'):?> selected="selected"<?php endif?>>보유적립금</option>
 		<option value="money"<?php if($sort=='money'):?> selected="selected"<?php endif?>>보유예치금</option>
-		<option value="last_log"<?php if($sort=='last_log'):?> selected="selected"<?php endif?>>최근접속</option>
+		<option value="last_log"<?php if($sort=='last_log'):?> selected="selected"<?php endif?>>최근 로그인</option>
 		<option value="birth1"<?php if($sort=='birth1'):?> selected="selected"<?php endif?>>나이</option>
 		<option value="birth2"<?php if($sort=='birth2'):?> selected="selected"<?php endif?>>생년월일</option>
 		</select>
@@ -328,7 +350,7 @@ $xmin1	= substr($date['totime'],10,2);
 	<th scope="col">연락처</th>
 	<th scope="col">가입일</th>
 <?php if($wideview == 'Y'):?>
-	<th scope="col">최근접속</th>
+	<th scope="col">최근 로그인</th>
 	<th scope="col">이메일</th>
 	<th scope="col">그룹</th>
 	<th scope="col">직업</th>
@@ -338,7 +360,7 @@ $xmin1	= substr($date['totime'],10,2);
 	<th scope="col">사용P</th>
 	<th scope="col">결혼기념일</th>
 <?php else:?>
-	<th scope="col">최근접속</th>
+	<th scope="col">최근 로그인</th>
 <?php endif?>
 	<th scope="col" class="side2"></th>
 	</tr>
@@ -346,7 +368,7 @@ $xmin1	= substr($date['totime'],10,2);
 	<tbody>
 	<?php while($R=db_fetch_array($RCD)):?>
 	<?php $_R=getUidData($table['s_mbrid'],$R['memberuid'])?>
-	<tr>
+	<tr <?php echo -getRemainDate($R['last_log'])>365?'class="inactive"':''?>>
 	<td class="side1"><input type="checkbox" name="mbrmembers[]" value="<?php echo $R['memberuid']?>" /></td>
 	<td><?php echo ($NUM-((($p-1)*$recnum)+$_recnum++))?></td>
 	<td><?php echo $autharr[$R['auth']]?></td>
@@ -435,6 +457,8 @@ $xmin1	= substr($date['totime'],10,2);
 
 		<input type="button" class="btnblue" value="데이터삭제" onclick="actQue('tool_delete');" />
 		<input type="button" class="btnblue" value="탈퇴처리" onclick="actQue('tool_out');" />
+		<input type="button" class="btnblue" value="휴면계정으로 전환" onclick="dormantAct('dormant_account');" />
+		<input type="button" class="btnblue" value="활성계정으로 전환" onclick="dormantAct('active_account');" />
 
 		</div>
 
@@ -569,6 +593,49 @@ function dropDate(date1,date2)
 	f.submit();
 }
 var submitFlag = false;
+// 휴면계정 관련 함수 추가 
+function dormantAct(flag)
+{
+	if (submitFlag == true)
+	{
+		alert('요청하신 작업을 실행중에 있습니다. 완료될때까지 기다려 주세요.  ');
+		return false;
+	}
+
+	var f = document.listForm;
+   var l = document.getElementsByName('mbrmembers[]');
+   var n = l.length;
+   var i;
+	var j=0;
+	var s='';
+
+	for	(i = 0; i < n; i++)
+	{
+		if (l[i].checked == true)
+		{
+			j++;
+			s += l[i].value +',';
+		}
+	}
+	if (!j && f.all_check.checked == false)
+	{
+		alert('회원을 선택해 주세요.     ');
+		return false;
+	}
+
+	if (confirm('정말로 실행하시겠습니까?        '))
+	{
+		submitFlag = true;
+		f.a.value = 'dormant_account_manager';
+		f.act.value = flag;
+		f.submit();
+	}
+	else 
+	{
+		return false;
+	}
+
+}
 function actQue(flag)
 {
 	if (submitFlag == true)
