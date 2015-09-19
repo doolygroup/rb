@@ -41,6 +41,13 @@ if ($M['pw'] != md5($pw) && $M1['tmpcode'] != md5($pw))
 	getLink('','','패스워드가 일치하지 않습니다.',$history);
 }
 
+// 휴면계정 처리 내용 추가
+if($usertype!='admin'&&$M1['auth']==5)
+{
+	include_once $g['path_module'].'member/_main.php';
+	if(!$want_account_active) getLink($g['s'].'/?r='.$r.'&system=guide.inactive&mbruid='.$M['uid'],'parent.','','');     
+   else setActiveAccount($M['uid']);
+}
 if ($usertype == 'admin')
 {
 	if (!$M1['admin']) getLink('','','회원님은 관리자가 아닙니다.',$history);
@@ -111,6 +118,9 @@ while(false !== ($file = readdir($opendir)))
 }
 closedir($opendir);
 
+
+// 활성계정으로 전환인 경우
+if($want_account_active) getLink($g['s'].'/?r='.$r.'&system=guide.active&confirm_active=1','parent.','','');
 
 if ($__target)
 {
