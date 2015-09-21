@@ -7,11 +7,11 @@
 <input type="hidden" name="referer" value="<?php echo $referer ? $referer : $_SERVER['HTTP_REFERER']?>" />
 <input type="hidden" name="usessl" value="<?php echo $d['member']['login_ssl']?>" />
 
-<div class="xdiv"><input type="text" name="id" class="input xinput" value="<?php echo getArrayCookie($_COOKIE['svshop'],'|',0)?>" /></div>
-<div class="xdiv"><input type="password" name="pw" class="input xinput" value="<?php echo getArrayCookie($_COOKIE['svshop'],'|',1)?>" /></div>
+<div class="xdiv"><input type="text" name="id" class="input xinput" value="" /></div>
+<div class="xdiv"><input type="password" name="pw" class="input xinput" value="" /></div>
 <div class="xdiv">
 	<div class="xl xfont">
-		<input type="checkbox" name="idpwsave" value="checked"<?php if($_COOKIE['svshop']):?> checked="checked"<?php endif?> /><?php echo $d['member']['login_emailid']?'이메일':'아이디'?>/비번 기억
+		<input type="checkbox" name="idpwsave" value="checked" />로그인 유지
 		<?php if($d['member']['login_ssl']):?>
 		<br /><input type="checkbox" name="ssl" value="checked" />보안로그인(SSL)
 		<?php endif?>
