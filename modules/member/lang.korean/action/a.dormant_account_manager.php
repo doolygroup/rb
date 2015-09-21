@@ -85,8 +85,8 @@ if($is_table)
 		getLink('reload','parent.',$msg,'');
 
 }else{
-
-    $link=$g['s'].'/?m=admin&module='.$m.'&front=dormancy';
+    $_SESSION['_join_menu'] = 6;
+    $link=$g['s'].'/?m=admin&module='.$m.'&front=config';
     getLink($link,'parent.','휴면계정 보관용 테이블을 먼저 생성해주세요','');
  
  }		
