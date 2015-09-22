@@ -496,11 +496,9 @@
             <table>
 				<tr>
 					<td class="td1"><span>휴면계정 보관 테이블</span></td>
-					<td class="td2">
+					<td class="td2" colspan="3">
 						<span class="b"><?php echo $DB['head'].'_'?></span><input type="text" name="inactive_table" value="<?php echo $d['member']['inactive_table']?$d['member']['inactive_table']:'inactive_member'?>" size="5" class="input sname" <?php echo $is_inactive_table?'disabled="disabled"':''?> onblur="tbNamecheck(this)" />
 
-					</td>
-					<td class="td2" colspan="2" style="vertical-align:middle;">
 						<?php if($is_inactive_table):?>
 						 <span>테이블이 생성되었습니다. </span> 
 					   <?php else:?>
