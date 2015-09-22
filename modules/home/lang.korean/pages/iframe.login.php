@@ -1,6 +1,7 @@
 <?php 
 $g['use_social'] = is_file($g['path_module'].'social/var/var.php');
 if ($g['use_social']) include $g['path_module'].'social/var/var.php';
+include_once $g['path_module'].'member/var/var.join.php';
 ?>
 
 <div id="loginBox">
@@ -20,10 +21,12 @@ if ($g['use_social']) include $g['path_module'].'social/var/var.php';
 		<input type="password" name="pw" class="xi" id="_xi_2" value="" />
 		</label>
 		<div class="submit">
+		<?php if($d['member']['use_login_cookie']):?>	
 		<label>
 		<input type="checkbox" name="idpwsave" value="checked" />
 		<span>로그인 유지</span>
 		</label>
+	   <?php endif?>
 		<label>
 		<input type="checkbox" name="gohub" value="Y" />
 		<span>마이페이지로 이동</span> 

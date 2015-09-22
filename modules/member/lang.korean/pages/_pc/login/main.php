@@ -42,7 +42,9 @@
 			<tr>
 			<td class="key"></td>
 			<td class="xfont">
+				<?php if($d['member']['use_login_cookie']):?>
 				<input type="checkbox" name="idpwsave" value="checked" onclick="remember_idpw(this)" />로그인 유지
+				<?php endif?>
 				<?php if($d['member']['login_ssl']):?>
 				<input type="checkbox" name="ssl" value="checked" />보안로그인(SSL)
 				<?php endif?>

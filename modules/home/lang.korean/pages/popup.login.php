@@ -14,7 +14,9 @@
 <div class="xdiv"><input type="password" name="pw" class="input xinput"  title="패스워드" value="" /></div>
 <div class="submitbtn"><input type="submit" value=" 로그인 " class="btnblue xsubmit" /></div>
 <div class="shift xfont">
+<?php if($d['member']['use_login_cookie']):?>	
 <input type="checkbox" name="idpwsave" value="checked" onclick="remember_idpw(this)" />로그인 유지
+<?php endif?>
 <?php if($d['member']['login_ssl']):?>
 <br /><input type="checkbox" name="ssl" value="checked" />보안로그인(SSL)
 <?php endif?>

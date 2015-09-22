@@ -21,7 +21,9 @@
 		</div>
 
 		<div class="agree">
+		   <?php if($d['member']['use_login_cookie']):?>
 			<input type="checkbox" name="idpwsave" class="xch" value="checked" />로그인 유지<br />
+			<?php endif?>
 			<input type="checkbox" name="ssl" value="checked" />SSL 보안로그인<br />
 		</div>
 		<div class="submit">
