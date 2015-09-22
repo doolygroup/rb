@@ -496,7 +496,7 @@
             <table>
 				<tr>
 					<td class="td1"><span>휴면계정 보관 테이블</span></td>
-					<td class="td2" colspan="3">
+					<td class="td2" colspan="3" style="width:100%;">
 						<span class="b"><?php echo $DB['head'].'_'?></span><input type="text" name="inactive_table" value="<?php echo $d['member']['inactive_table']?$d['member']['inactive_table']:'inactive_member'?>" size="5" class="input sname" <?php echo $is_inactive_table?'disabled="disabled"':''?> onblur="tbNamecheck(this)" />
 
 						<?php if($is_inactive_table):?>
@@ -519,7 +519,7 @@
 				</tr>
 			    <?php else:?>
 			     <tr>
-					<td class="td2" colspan="4" style="color:red;line-height:160%;width:230px">
+					<td class="td2" colspan="4" style="color:red;line-height:160%;width:100%">
                        아래 '확인' 버튼을 누르시면 휴면계정 보관 테이블이 생성됩니다. <br/>
                        보안강화를 위해서 테이블명을 변경하여 생성하시는 것을 권고드립니다. <br />
                        테이블명은 영문 소/대문자 및 '_' 를 이용하실 수 있으며 'prefix' 는 자동으로 세팅됩니다. 
