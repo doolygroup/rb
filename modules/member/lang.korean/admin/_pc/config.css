@@ -1,10 +1,10 @@
 #configbox {z-index:1;}
 #configbox .tab {height:28px;}
 #configbox .tab ul {padding:0;margin:0;position:relative;top:1px;}
-#configbox .tab li {width:115px;height:13px;text-align:center;list-style-type:none;float:left;border-top:#dfdfdf solid 1px;border-right:#dfdfdf solid 1px;border-bottom:#dfdfdf solid 1px;padding:9px 7px 7px 7px;background:#f9f9f9;cursor:pointer;font-weight:bold;}
+#configbox .tab li {width:110px;height:13px;text-align:center;list-style-type:none;float:left;border-top:#dfdfdf solid 1px;border-right:#dfdfdf solid 1px;border-bottom:#dfdfdf solid 1px;padding:9px 7px 7px 7px;background:#f9f9f9;cursor:pointer;font-weight:bold;}
 #configbox .tab .leftside {border-left:#dfdfdf solid 1px;}
 #configbox .tab .selected {border-bottom:#ffffff solid 1px;background:#ffffff;color:#FF5B01;}
-#configbox .agreebox {width:631px;border:#dfdfdf solid 1px;padding:35px 3px 0 15px;}
+#configbox .agreebox {width:731px;border:#dfdfdf solid 1px;padding:35px 3px 0 15px;}
 
 
 #configbox table {margin:0 0 20px 0;}
@@ -49,10 +49,10 @@
 #agreebox {z-index:2;display:none;position:relative;top:-105px;_top:-75px;}
 #agreebox .tab {height:28px;}
 #agreebox .tab ul {position:relative;top:1px;padding:0;margin:0;}
-#agreebox .tab li {text-align:center;width:115px;height:20px;line-height:130%;list-style-type:none;float:left;border-top:#dfdfdf solid 1px;border-right:#dfdfdf solid 1px;border-bottom:#dfdfdf solid 1px;padding:9px 7px 7px 7px;background:#f9f9f9;cursor:pointer;}
+#agreebox .tab li {text-align:center;width:135px;height:20px;line-height:130%;list-style-type:none;float:left;border-top:#dfdfdf solid 1px;border-right:#dfdfdf solid 1px;border-bottom:#dfdfdf solid 1px;padding:9px 7px 7px 7px;background:#f9f9f9;cursor:pointer;}
 #agreebox .tab .leftside {border-left:#dfdfdf solid 1px;}
 #agreebox .tab .selected {border-bottom:#ffffff solid 1px;background:#ffffff;color:#078DFF;}
-#agreebox .agreebox {width:641px;border:#dfdfdf solid 1px;padding:25px 1px 7px 7px;background:#ffffff;}
+#agreebox .agreebox {width:731px;border:#dfdfdf solid 1px;padding:25px 1px 7px 7px;background:#ffffff;}
 #agreebox .agreebox textarea {border:0;width:640px;_width:639px;height:400px;overflow-x:hidden;overflow-y:auto;line-height:130%;color:#666;font-family:dotum;scrollbar-base-color:#E1E1E1;scrollbar-face-color:#FFF;scrollbar-track-color:#FFF;scrollbar-highlight-color:#FFF;scrollbar-3dlight-color:#E1E1E1;scrollbar-shadow-color:#E1E1E1;scrollbar-darkshadow-color:#FFF;scrollbar-arrow-color:#7a7a7a;}
 #agreebox .topline {border-top:#dfdfdf solid 1px;}
 #agreebox .submitbox {padding:20px 0 20px 300px;}

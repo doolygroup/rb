@@ -2,6 +2,13 @@
 
 
 #mbrlist .sbox {padding:0 0 15px 0;}
+#mbrlist .sbox .inactive_info a {
+    background: #999;
+    display: inline-block;
+    margin: 0 2px;
+    padding: 3px 10px 2px;
+    color:#fff;
+}
 #mbrlist .sbox .btngray {margin:0;height:17px;}
 #mbrlist .sbox .btnblue {margin:0;height:17px;}
 #mbrlist .sbox .account {width:192px;}
@@ -19,6 +26,7 @@
 #mbrlist table {width:100%;_width:99.6%;border-spacing:0px;border-collapse:collapse;}
 #mbrlist table caption {display:none;}
 #mbrlist thead th {height:28px;border-top:#D2D2D2 solid 1px;border-bottom:#D2D2D2 solid 1px;background:url('../../../../../_core/image/_public/bg_list_tt.jpg');font-size:11px;font-family:dotum;font-weight:normal;color:#787878;}
+#mbrlist table .inactive {background-color: #fbe9d7}
 #mbrlist .tblfix {width:790px;}
 #mbrlist thead .side1 {border-left:#D2D2D2 solid 1px;}
 #mbrlist thead .side2 {border-right:#D2D2D2 solid 1px;}

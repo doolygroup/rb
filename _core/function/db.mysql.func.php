@@ -101,4 +101,17 @@ function getSqlFilter($sql)
 {
 	return preg_replace("( union| update| insert| delete| drop|\/\*|\*\/|\\\|\;)",'',$sql);
 }
+// 테이블 컬럼 얻기
+function getTableColum($table)
+{
+   global $DB_CONNECT;
+
+    $cols=array();
+	 $result = db_query("SHOW COLUMNS FROM ".$table,$DB_CONNECT); 
+	 while ($r=db_fetch_array($result))
+	 {
+	     if($r["Field"]!='uid') $cols[]= $r["Field"]; // uid 제외한 모든 컬럼 지정		
+	 }  
+	 return $cols;
+}
 ?>

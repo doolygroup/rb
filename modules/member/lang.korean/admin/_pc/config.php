@@ -1,6 +1,7 @@
 <?php include_once $g['path_module'].$module.'/var/var.join.php'?>
 
 
+<?php $is_inactive_table=$d['member']['inactive_table']!=''?1:0;?>
 <div id="configbox">
 
 	<form name="procForm" action="<?php echo $g['s']?>/" method="post" target="_action_frame_<?php echo $m?>" onsubmit="return saveCheck(this);">
@@ -8,6 +9,10 @@
 	<input type="hidden" name="m" value="<?php echo $module?>" />
 	<input type="hidden" name="a" value="member_config" />
 	<input type="hidden" name="_join_menu" value="<?php echo $_SESSION['_join_menu']?$_SESSION['_join_menu']:1?>" />
+	<input type="hidden" name="is_inactive_table" value="<?php echo $is_inactive_table?>" />
+    <?php if($is_inactive_table):?>
+	<input type="hidden" name="inactive_table" value="<?php echo $d['member']['inactive_table']?>" />
+    <?php endif?>
 
 
 	<div class="tab">
@@ -17,6 +22,7 @@
 		<li id="tbox3" onclick="confShow(3);">가입항목 추가</li>
 		<li id="tbox4" onclick="confShow(4);">로그인/MYPAGE</li>
 		<li id="tbox5" onclick="confShow(5);">약관/안내메세지</li>
+		<li id="tbox6" onclick="confShow(6);">개인정보 보호</li>
 		</ul>
 	</div>
 	<div class="agreebox">
@@ -486,6 +492,42 @@
 		<div id="tarea5" class="hide">
 		
 		</div>
+		<div id="tarea6" clss="hide">
+            <table>
+				<tr>
+					<td class="td1"><span>휴면계정 보관 테이블</span></td>
+					<td class="td2" colspan="3" style="width:100%;">
+						<span class="b"><?php echo $DB['head'].'_'?></span><input type="text" name="inactive_table" value="<?php echo $d['member']['inactive_table']?$d['member']['inactive_table']:'inactive_member'?>" size="5" class="input sname" <?php echo $is_inactive_table?'disabled="disabled"':''?> onblur="tbNamecheck(this)" />
+
+						<?php if($is_inactive_table):?>
+						 <span>테이블이 생성되었습니다. </span> 
+					   <?php else:?>
+					    <span style="color:red;">테이블이 생성되어 있지 않습니다.</span>
+                      <?php endif?>
+					</td>
+				</tr>
+				<?php if($is_inactive_table):?>
+				<tr>
+					<td class="td1"><span>휴면계정 알림 메일</span></td>
+					<td class="td2">
+						<input type="checkbox" name="inactive_email_send" value="1"<?php if($d['member']['inactive_email_send']):?> checked="checked"<?php endif?> />휴면계정 알림 이메일 발송
+					</td>
+					<td class="td1"><span>활성계정 알림 메일</span></td>
+					<td class="td2">
+						<input type="checkbox" name="active_email_send" value="1"<?php if($d['member']['active_email_send']):?> checked="checked"<?php endif?> />활성계정 알림 이메일 발송
+					</td>
+				</tr>
+			    <?php else:?>
+			     <tr>
+					<td class="td2" colspan="4" style="color:red;line-height:160%;width:100%">
+                       아래 '확인' 버튼을 누르시면 휴면계정 보관 테이블이 생성됩니다. <br/>
+                       보안강화를 위해서 테이블명을 변경하여 생성하시는 것을 권고드립니다. <br />
+                       테이블명은 영문 소/대문자 및 '_' 를 이용하실 수 있으며 'prefix' 는 자동으로 세팅됩니다. 
+					</td>
+				</tr>
+			   <?php endif?>
+			</table>	
+		</div>
 	</div>
 
 
@@ -575,7 +617,7 @@ function confShow(n)
 {
 	var i;
 
-	for (i = 1; i < 6; i++)
+	for (i = 1; i < 7; i++)
 	{
 		getId('tbox'+i).style.borderBottom = '#dfdfdf solid 1px';
 		getId('tbox'+i).style.background = '#f9f9f9';
@@ -612,6 +654,23 @@ function tabShow(n)
 	getId('tagree'+n).style.color = '#078DFF';
 	getId('bagree'+n).style.display = 'block';
 	document.nprocForm._join_tab.value = n;
+}
+// 휴면계정 보관용 테이블 형식 체크 함수
+function chkTbnameValue(text)
+{
+	if (text == '') return false;
+	if (!getTypeCheck(text,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_")) return false;
+	return true;
+}
+function tbNamecheck(obj)
+{
+   	if (!chkTbnameValue(obj.value))
+	{
+		obj.form.inactive_table.value = 'inactive_member';
+		obj.focus();
+	    alert('테이블명은 영문 대/소문자 및 \'_\' 만 사용 가능합니다.');
+		return false;
+	}
 }
 function saveCheck(f)
 {

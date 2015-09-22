@@ -8,6 +8,7 @@ if (!$name || !$email) getLink('','','정상적인 접근이 아닙니다.','');
 
 include_once $g['dir_module'].'var/var.join.php';
 
+$inactive_table=$DB['head'].'_'.$d['member']['inactive_table'];
 if (!$d['member']['join_email'])
 {
 	getLink('','','죄송합니다. 대표이메일이 등록되지 않았습니다. 관리자에게 문의해 주세요.','');
@@ -20,14 +21,20 @@ if ($d['member']['login_emailid'])
 	{
 		getLink('','','입력하신 정보로 일치하는 회원데이터가 없습니다.','');
 	}
-	$M = getDbData($table['s_mbrdata'],'memberuid='.$R['uid'],'*');
+	// 휴면계정 회원 필터링 추가
+    $_tmp = getDbData($table['s_mbrdata'],'memberuid='.$R['uid'],'memberuid,auth');
+    if($_tmp['auth']==5) $M = getDbData($inactive_table,'memberuid='.$R['uid'],'*');
+    else $M = getDbData($table['s_mbrdata'],'memberuid='.$R['uid'],'*');
+	//$M = getDbData($table['s_mbrdata'],'memberuid='.$R['uid'],'*');
 }
 else {
-	$M = getDbData($table['s_mbrdata'],"email='".$email."'",'*');
-	if (!$M['email'])
-	{
-		getLink('','','입력하신 정보로 일치하는 회원데이터가 없습니다.','');
-	}
+	$_tmp1 = getDbData($table['s_mbrdata'],"email='".$email."'",'email');
+	$_tmp2 = getDbData($inactive_table,"email='".$email."'",'email');
+
+	if (!$_tmp1['email']&&!$_tmp2['email']) 	getLink('','','입력하신 정보로 일치하는 회원데이터가 없습니다.','');
+	else if($_tmp1['email'] && !$_tmp2['email']) $M = getDbData($table['s_mbrdata'],"email='".$email."'",'*'); // 활성계정 회원인 경우
+    else if(!$_tmp1['email'] && $_tmp2['email']) $M = getDbData($inactive_table,"email='".$email."'",'*'); // 휴면계정 회원인 경우
+
 	$R = getUidData($table['s_mbrid'],$M['memberuid']);
 }
 
@@ -35,7 +42,7 @@ if ($M['name'] != $name)
 {
 	getLink('','','입력하신 정보로 일치하는 회원데이터가 없습니다.','');
 }
-if ($M['tmpcode'])
+if ($M['auth']!=5&&$M['tmpcode'])
 {
 	getLink('','','이미 회원님의 이메일['.$M['email'].']로   \n임시 비밀번호를 발송해 드렸습니다.','');
 }
