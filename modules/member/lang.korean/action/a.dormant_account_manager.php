@@ -39,7 +39,10 @@ if($is_table)
 			          $sql_arr=''; 
 			          foreach ($inactive_table_cols as $col)
 			          {
-			               if($col!='memberuid' && $col!='auth' && $col!='d_regis' && $M[$col]!='')  $sql_arr.= $col."='휴면계정',";
+			               if($col!='memberuid' && $col!='auth' && $col!='d_regis' && $col!='sex' && $M[$col]!=''){
+			                  if($col=='mailing' || $col=='sms') $sql_arr.= $col."='0',";	
+			                  else $sql_arr.= $col."='휴면계정',";
+			               }
 			          }
 			          $sql_arr=substr($sql_arr,0,-1);
 			          getDbUpdate($table['s_mbrdata'],$sql_arr,'memberuid='.$memberuid);
