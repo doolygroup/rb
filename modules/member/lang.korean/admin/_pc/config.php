@@ -640,6 +640,15 @@ function saveCheck(f)
 			return false;
 		}
 	}
+	if (f.use_login_cookie.checked == true)
+	{
+		if (f.login_expire.value == '')
+		{
+			alert('\'로그인 유지 기능 사용\' 옵션 사용을 체크하신 경우 \'로그인 유지기간\'을 반드시 설정해야 합니다.   ');
+			f.login_expire.focus();
+			return false;
+		}
+	}
 	return confirm('정말로 실행하시겠습니까?      ');
 }
 
