@@ -1,3 +1,4 @@
+<?php include $g['path_module'].'member/var/var.join.php';?>
 <?php if($d['layout']['dsp_side_login']):?>
 <?php if($my['uid']):?>
 <div class="mbrinfo">
@@ -36,9 +37,11 @@
 		<input type="hidden" name="r" value="<?php echo $r?>" />
 		<input type="hidden" name="a" value="login" />
 		<div class="i1 tooltip">
-		<input type="text" name="id" value="<?php echo getArrayCookie($_COOKIE['svshop'],'|',0)?>" class="input" title="아이디" />
-		<input type="checkbox" name="idpwsave" value="checked" class="checkbox"<?php if($_COOKIE['svshop']):?> checked="checked"<?php endif?> /> 정보기억
-		<span class="<?php if($d['layout']['dsp_side']=='left'):?>_right _r150<?php else:?>_left _l150<?php endif?> _w150">정보기억에 체크할 경우 다음접속시 아이디와 패스워드를 입력하지 않으셔도 됩니다.<br />그러나, 개인PC가 아닐 경우 타인이 로그인할 수 있습니다.<br />PC를 여러사람이 사용하는 공공장소에서는 체크하지 마세요.<i></i></span>
+		<input type="text" name="id" value="" class="input" title="아이디" />
+		<?php if($d['member']['use_login_cookie']):?>
+		<input type="checkbox" name="idpwsave" value="checked" class="checkbox"/> <em class="use-login-cookie">로그인 유지</em>
+		<span class="<?php if($d['layout']['dsp_side']=='left'):?>_right _r150<?php else:?>_left _l150<?php endif?> _w150">'로그인 유지' 기능을 사용하면 <br />관리자가 정한 기간동안 별도로 로그인하지 않아도 자동 접속이 <br />가능합니다. 개인PC가 아닐 경우 타인이 로그인할 수 있습니다. <br />PC를 여러사람이 사용하는 공공장소에서는 체크하지 마세요.<i></i></span>
+		<?php endif?>
 		<div class="clear"></div>
 		</div>
 		<div class="i1">
