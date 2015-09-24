@@ -30,19 +30,21 @@
 			<tr>
 			<td class="key"><?php echo $d['member']['login_emailid']?'이메일':'아이디'?></td>
 			<td>
-				<input type="text" name="id" class="input xinput" title="<?php echo $d['member']['login_emailid']?'이메일':'아이디'?>" value="<?php echo getArrayCookie($_COOKIE['svshop'],'|',0)?>" />
+				<input type="text" name="id" class="input xinput" title="<?php echo $d['member']['login_emailid']?'이메일':'아이디'?>" value="" />
 			</td>
 			</tr>
 			<tr>
 			<td class="key">비밀번호</td>
 			<td>
-				<input type="password" name="pw" class="input xinput"  title="패스워드" value="<?php echo getArrayCookie($_COOKIE['svshop'],'|',1)?>" />
+				<input type="password" name="pw" class="input xinput"  title="패스워드" value="" />
 			</td>
 			</tr>
 			<tr>
 			<td class="key"></td>
 			<td class="xfont">
-				<input type="checkbox" name="idpwsave" value="checked" onclick="remember_idpw(this)"<?php if($_COOKIE['svshop']):?> checked="checked"<?php endif?> /><?php echo $d['member']['login_emailid']?'이메일':'아이디'?>/비밀번호 기억
+				<?php if($d['member']['use_login_cookie']):?>
+				<input type="checkbox" name="idpwsave" value="checked" onclick="remember_idpw(this)" />로그인 유지
+				<?php endif?>
 				<?php if($d['member']['login_ssl']):?>
 				<input type="checkbox" name="ssl" value="checked" />보안로그인(SSL)
 				<?php endif?>
@@ -104,7 +106,7 @@ function remember_idpw(ths)
 {
 	if (ths.checked == true)
 	{
-		if (!confirm('\n\n패스워드정보를 저장할 경우 다음접속시 \n\n패스워드를 입력하지 않으셔도 됩니다.\n\n그러나, 개인PC가 아닐 경우 타인이 로그인할 수 있습니다.     \n\nPC를 여러사람이 사용하는 공공장소에서는 체크하지 마세요.\n\n정말로 패스워드를 기억시키겠습니까?\n\n'))
+		if (!confirm('\n\n\'로그인 유지\' 기능을 사용하면 관리자가 정한 기간동안\n\n별도로 로그인하지 않아도 자동 접속이 가능합니다. \n\n개인PC가 아닐 경우 타인이 로그인할 수 있습니다.   \n\nPC를 여러사람이 사용하는 공공장소에서는 체크하지 마세요.\n\n정말로 로그인 유지를 하시겠습니까??\n\n'))
 		{
 			ths.checked = false;
 		}

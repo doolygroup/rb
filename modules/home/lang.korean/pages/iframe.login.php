@@ -1,6 +1,7 @@
 <?php 
 $g['use_social'] = is_file($g['path_module'].'social/var/var.php');
 if ($g['use_social']) include $g['path_module'].'social/var/var.php';
+include_once $g['path_module'].'member/var/var.join.php';
 ?>
 
 <div id="loginBox">
@@ -13,17 +14,19 @@ if ($g['use_social']) include $g['path_module'].'social/var/var.php';
 	<fieldset>
 		<label> 
 		<div>이메일 또는 아이디</div>
-		<input type="text" name="id" class="xi" id="_xi_1" autocomplete="on" value="<?php echo getArrayCookie($_COOKIE['svshop'],'|',0)?>" />
+		<input type="text" name="id" class="xi" id="_xi_1" autocomplete="on" value="" />
 		</label>
 		<label> 
 		<div>비밀번호</div>
-		<input type="password" name="pw" class="xi" id="_xi_2" value="<?php echo getArrayCookie($_COOKIE['svshop'],'|',1)?>" />
+		<input type="password" name="pw" class="xi" id="_xi_2" value="" />
 		</label>
 		<div class="submit">
+		<?php if($d['member']['use_login_cookie']):?>	
 		<label>
-		<input type="checkbox" name="idpwsave" value="checked"<?php if($_COOKIE['svshop']):?> checked="checked"<?php endif?> />
-		<span>아이디/비밀번호 기억</span>
+		<input type="checkbox" name="idpwsave" value="checked" />
+		<span>로그인 유지</span>
 		</label>
+	   <?php endif?>
 		<label>
 		<input type="checkbox" name="gohub" value="Y" />
 		<span>마이페이지로 이동</span> 

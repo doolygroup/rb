@@ -15,13 +15,15 @@
 		<input type="hidden" name="usessl" value="<?php echo $d['member']['login_ssl']?>" />
 		<input type="hidden" name="usertype" value="admin" />
 		<div class="logbox">
-		<input type="text" name="id" value="<?php echo getArrayCookie($_COOKIE['svshop'],'|',0)?>" placeholder="이메일 또는 아이디" />
+		<input type="text" name="id" value="" placeholder="이메일 또는 아이디" />
 		<div class="line"></div>
-		<input type="password" name="pw" value="<?php echo getArrayCookie($_COOKIE['svshop'],'|',1)?>" placeholder="패스워드" />
+		<input type="password" name="pw" value="" placeholder="패스워드" />
 		</div>
 
 		<div class="agree">
-			<input type="checkbox" name="idpwsave" class="xch" value="checked"<?php if($_COOKIE['svshop']):?> checked="checked"<?php endif?> />내 아이디/패스워드 기억<br />
+		   <?php if($d['member']['use_login_cookie']):?>
+			<input type="checkbox" name="idpwsave" class="xch" value="checked" />로그인 유지<br />
+			<?php endif?>
 			<input type="checkbox" name="ssl" value="checked" />SSL 보안로그인<br />
 		</div>
 		<div class="submit">

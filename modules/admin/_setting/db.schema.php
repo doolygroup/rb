@@ -850,4 +850,17 @@ KEY parent(parent)) ENGINE=".$DB['type']." CHARSET=UTF8");
 db_query($_tmp, $DB_CONNECT);
 db_query("OPTIMIZE TABLE ".$table['s_xtralog'],$DB_CONNECT); 
 }
+// 회원 로그인 토큰
+$_tmp = db_query( "select count(*) from ".$table['s_mbrtoken'], $DB_CONNECT );
+if ( !$_tmp ) {
+$_tmp = ("
+CREATE TABLE ".$table['s_mbrtoken']." (
+uid			INT				PRIMARY KEY		NOT NULL AUTO_INCREMENT,
+memberuid		INT				DEFAULT '0'		NOT NULL,
+access_token		VARCHAR(100)	DEFAULT ''		NOT NULL,
+expire		INT		DEFAULT '0'		NOT NULL,
+KEY memberuid(memberuid)) ENGINE=".$DB['type']." CHARSET=UTF8");                            
+db_query($_tmp, $DB_CONNECT);
+db_query("OPTIMIZE TABLE ".$table['s_mbrtoken'],$DB_CONNECT); 
+}
 ?>

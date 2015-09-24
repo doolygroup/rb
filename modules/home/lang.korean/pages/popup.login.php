@@ -1,4 +1,4 @@
-<?php include_once $g['path_module'].'member/var/var.join.php'?>
+<?php include_once $g['path_module'].'member/var/var.join.php';?>
 
 <div id="loginbox">
 
@@ -10,11 +10,13 @@
 <input type="hidden" name="referer" value="<?php echo $referer ? $referer : $_SERVER['HTTP_REFERER']?>" />
 <input type="hidden" name="usessl" value="<?php echo $d['member']['login_ssl']?>" />
 
-<div class="xdiv"><input type="text" name="id" class="input xinput" title="<?php echo $d['member']['login_emailid']?'이메일':'아이디'?>" value="<?php echo getArrayCookie($_COOKIE['svshop'],'|',0)?>" /></div>
-<div class="xdiv"><input type="password" name="pw" class="input xinput"  title="패스워드" value="<?php echo getArrayCookie($_COOKIE['svshop'],'|',1)?>" /></div>
+<div class="xdiv"><input type="text" name="id" class="input xinput" title="<?php echo $d['member']['login_emailid']?'이메일':'아이디'?>" value="" /></div>
+<div class="xdiv"><input type="password" name="pw" class="input xinput"  title="패스워드" value="" /></div>
 <div class="submitbtn"><input type="submit" value=" 로그인 " class="btnblue xsubmit" /></div>
 <div class="shift xfont">
-<input type="checkbox" name="idpwsave" value="checked" onclick="remember_idpw(this)"<?php if($_COOKIE['svshop']):?> checked="checked"<?php endif?> /><?php echo $d['member']['login_emailid']?'이메일':'아이디'?>/비밀번호 기억
+<?php if($d['member']['use_login_cookie']):?>	
+<input type="checkbox" name="idpwsave" value="checked" onclick="remember_idpw(this)" />로그인 유지
+<?php endif?>
 <?php if($d['member']['login_ssl']):?>
 <br /><input type="checkbox" name="ssl" value="checked" />보안로그인(SSL)
 <?php endif?>
@@ -71,7 +73,7 @@ function remember_idpw(ths)
 {
 	if (ths.checked == true)
 	{
-		if (!confirm('\n\n패스워드정보를 저장할 경우 다음접속시 \n\n패스워드를 입력하지 않으셔도 됩니다.\n\n그러나, 개인PC가 아닐 경우 타인이 로그인할 수 있습니다.     \n\nPC를 여러사람이 사용하는 공공장소에서는 체크하지 마세요.\n\n정말로 패스워드를 기억시키겠습니까?\n\n'))
+		if (!confirm('\n\n\'로그인 유지\' 기능을 사용하면 관리자가 정한 기간동안\n\n별도로 로그인하지 않아도 자동 접속이 가능합니다. \n\n개인PC가 아닐 경우 타인이 로그인할 수 있습니다.   \n\nPC를 여러사람이 사용하는 공공장소에서는 체크하지 마세요.\n\n정말로 로그인 유지를 하시겠습니까??\n\n'))
 		{
 			ths.checked = false;
 		}

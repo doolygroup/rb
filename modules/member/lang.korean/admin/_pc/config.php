@@ -467,6 +467,13 @@
 						<input type="checkbox" name="login_ssl" value="1"<?php if($d['member']['login_ssl']):?> checked="checked"<?php endif?> />보안접속(SSL) 사용<br />
 						<input type="checkbox" name="login_emailid" value="1"<?php if($d['member']['login_emailid']):?> checked="checked"<?php endif?> />이메일아이디 사용<br />
 						<input type="checkbox" name="login_openid" value="1"<?php if($d['member']['login_openid']):?> checked="checked"<?php endif?> />오픈아이디(OpenID) 사용<br />
+						<input type="checkbox" name="use_login_cookie" value="1" <?php if($d['member']['use_login_cookie']):?> checked="checked"<?php endif?>/> 로그인 유지 기능 사용
+					</td>
+				</tr>
+				<tr>
+					<td class="td1"><span>로그인 유지기간</span></td>
+					<td class="td2">
+						<input type="text" name="login_expire" value="<?php echo $d['member']['login_expire']?>" size="5" class="input" /> 일
 					</td>
 				</tr>
 				<tr>
@@ -689,6 +696,15 @@ function saveCheck(f)
 		{
 			alert('가입이메일을 발송하시려면 대표이메일을 반드시 등록해야 합니다.   ');
 			f.join_email.focus();
+			return false;
+		}
+	}
+	if (f.use_login_cookie.checked == true)
+	{
+		if (f.login_expire.value == '')
+		{
+			alert('\'로그인 유지 기능 사용\' 옵션 사용을 체크하신 경우 \'로그인 유지기간\'을 반드시 설정해야 합니다.   ');
+			f.login_expire.focus();
 			return false;
 		}
 	}
