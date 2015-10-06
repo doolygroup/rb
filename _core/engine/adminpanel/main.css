@@ -426,8 +426,7 @@
 }
 
 .rb-hidden-system-site .rb-system-site {
-    /*z-index:903;*/
-    right: -299px;
+    right: -300px;
 }
 
 .rb-hidden-system-site .rb-system-main {
