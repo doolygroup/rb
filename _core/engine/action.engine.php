@@ -17,7 +17,7 @@ if (strpos(',join,',$a))
 }
 
 $g['act_module0'] = $g['dir_module'].$a.'.php';
-$g['act_module1'] = $g['dir_module'].'action/'.(strpos($a,'/')?str_replace('/','/a.',$a):'a.'.$a).'.php';
+if(strpos($a,'/')) $g['act_module1'] = $g['dir_module'].'action/'.str_replace('/','/a.',$a).'.php';	
 $g['act_module2'] = $g['dir_module'].'action/a.'.$a.'.php';
 $g['act_module3'] = $g['referer'] && strpos($g['referer'],'&m=admin&') ? ($_HMD['lang']?$_HMD['lang']:$d['admin']['syslang']) : ($_HS['lang']?$_HS['lang']:$d['admin']['syslang']);
 
